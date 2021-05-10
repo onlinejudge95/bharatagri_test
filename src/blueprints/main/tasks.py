@@ -11,7 +11,7 @@ def example_func(flag):
     if flag > 5:
         print("Call to the service succedded")
         return True
-    raise Exception("Service is not responding")
+    raise ResourceWarning("Service is not responding")
 
 
 @celery.task()
@@ -20,7 +20,7 @@ def simulated_task(flag, retries=5, backoff=1):
     while True:
         try:
             return example_func(flag)
-        except:
+        except ResourceWarning:
             if count == retries:
                 raise RuntimeError("Reached maximum number of retries")
 

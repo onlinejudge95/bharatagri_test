@@ -14,6 +14,5 @@ def simulated_process():
 
     from src.blueprints.main.tasks import simulated_task
     simulated_task.delay(circuit_breaker, retries=3)
-    
+
     return jsonify({"status": "ok", "message": "Task scheduled"})
-    
