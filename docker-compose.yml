@@ -18,3 +18,11 @@ services:
         image: redis:6.2.3-alpine
         volumes:
             - redis-data:/var/lib/redis/data
+
+    celery:
+        command: celery --app src.blueprints.main.tasks worker --loglevel debug
+        image: celery:development
+        build:
+            context: .
+        env_file:
+            - .env
