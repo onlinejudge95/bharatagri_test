@@ -20,7 +20,7 @@ services:
             - redis-data:/var/lib/redis/data
 
     celery:
-        command: celery --app src.blueprints.main.tasks worker --loglevel debug
+        command: celery --app src.blueprints.main.tasks worker --loglevel info
         image: celery:development
         build:
             context: .
