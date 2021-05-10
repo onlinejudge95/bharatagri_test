@@ -8,4 +8,4 @@ RUN pip install --requirement requirements.txt
 
 COPY . .
 
-CMD gunicorn --bind 0.0.0.0:8000 --workers 2 --worker-class eventlet "src.app:create_app()"
+CMD gunicorn --config "python:config.gunicorn"

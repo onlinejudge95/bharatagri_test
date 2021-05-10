@@ -1,9 +1,32 @@
 version: "3.8"
 
+volumes:
+    redis-data:
+
 services:
     app:
         image: app:development
         build:
             context: .
+        env_file:
+            - .env
         ports:
             - 8000:8000
+        volumes:
+            - .:/usr/src/app
+
+    redis:
+        command: redis-server --requirepass devpassword
+        image: redis:6.2.3-alpine
+        volumes:
+            - redis-data:/var/lib/redis/data
+
+    celery:
+        command: celery --app src.blueprints.main.tasks worker --loglevel info
+        image: celery:development
+        build:
+            context: .
+        env_file:
+            - .env
+        volumes:
+            - .:/usr/src/app
