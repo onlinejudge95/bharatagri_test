@@ -1,5 +1,8 @@
 version: "3.8"
 
+volumes:
+    redis-data:
+
 services:
     app:
         image: app:development
@@ -9,3 +12,9 @@ services:
             - .env
         ports:
             - 8000:8000
+
+    redis:
+        command: redis-server --requirepass devpassword
+        image: redis:6.2.3-alpine
+        volumes:
+            - redis-data:/var/lib/redis/data
